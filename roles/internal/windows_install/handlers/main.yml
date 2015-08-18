@@ -1,0 +1,19 @@
+---
+
+- name: restart iis
+  win_service:
+   name: Iisadmin
+   state: restarted
+
+- name: mail confimration module
+  local_action: mail
+                host='your_smtp_server'
+                port=465
+                username='your_smtp_username'
+                password='your_smtp_password'
+                headers=Reply-To=your_email_address@your_company.com
+                charset='UTF-8'
+                from="no_reply@amazonaws.com ({{ user_fname }} {{ user_lname }})"
+                to='{{ user_email }}'
+                subject='Your IIS Server is ready'
+                body='Dear {{ user_fname }} {{ user_lname }}, {{ new_line }}{{ new_line }}Your WebServer is Ready{{ new_line }}{{ new_line }}Best Regards,{{ new_line }}CloudFirst Team{{ new_line }}'

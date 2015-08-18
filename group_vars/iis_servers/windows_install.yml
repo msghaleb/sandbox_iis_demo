@@ -1,0 +1,26 @@
+#---
+
+#windows_install_download_directory : 'C:\Users\{{ windows_install_user }}\Downloads'
+
+#windows_install_msi                :
+#                                     - src: 'http://web-wand.de/Thinfinity_Remote_Desktop_Workstation_Setup_x86.msi'
+#                                       dest: 'C:\\Users\\{{ windows_install_user }}\\Downloads\\Thinfinity_Remote_Desktop_Workstation_Setup_x86.msi'
+#                                     - src: 'http://hicap.frontmotion.com.s3.amazonaws.com/Firefox/Firefox-39.0/Firefox-39.0-en-US.msi'
+#                                       dest: 'C:\\Users\\{{ windows_install_user }}\\Downloads\\Firefox-39.0-en-US.msi'
+#windows_install_exe                : 
+#                                     - src: 'http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe'
+#                                       dest: 'C:\\Users\\{{ windows_install_user }}\\Desktop\\putty.exe'
+#
+#windows_install_copy_thinRDP       :
+#                                     - src: 'Thinfinity.RemoteDesktop.Workstation.ini'
+#                                       dest: 'C:\ProgramData\Cybele Software\Thinfinity\Remote Desktop Workstation\Thinfinity.RemoteDesktop.Workstation.ini'
+#
+#windows_install_create_shortcuts   :
+#                                    - src: 'c:\windows\system32\mstsc.exe'
+#                                       dest: 'c:\Users\{{ windows_install_user }}\Desktop\Remote_Desktop.lnk'
+#
+#                                     - src: 'c:\windows\system32\cmd.exe'
+#                                       dest: 'c:\Users\{{ windows_install_user }}\Desktop\cmd.lnk'
+#
+#                                     - src: 'c:\windows\system32\notepad.exe'
+#                                       dest: 'c:\Users\{{ windows_install_user }}\Desktop\notepad.lnk'

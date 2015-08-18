@@ -1,0 +1,4 @@
+---
+windows_install_user        : "Administrator"
+new_line                    : "\n"
+a_colon                     : ":"

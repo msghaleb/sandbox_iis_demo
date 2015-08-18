@@ -1,0 +1,24 @@
+---
+
+
+- name: Install IIS
+  win_feature:
+        name: "Web-Server"
+        state: present
+        restart: yes
+        include_sub_features: yes
+        include_management_tools: yes
+  tags:
+    - install_iis
+
+- name: Download simple web site to 'C:\inetpub\wwwroot\ansible.html'
+  win_get_url:
+        url: 'https://raw.githubusercontent.com/thisdavejohnson/mywebapp/master/index.html'
+        dest: 'C:\inetpub\wwwroot\ansible.html'
+  notify:
+    - restart iis
+    # - mail confimration module
+    # uncomment the above if you want to send a confirmation mail, but don't forget to modify the mail module under roles/internal/handlers/main.yml ;-)
+  tags:
+    - download_sample_page
+

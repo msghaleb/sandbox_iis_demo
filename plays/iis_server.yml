@@ -1,0 +1,13 @@
+---
+
+- hosts: iis_servers
+  connection: local # Local means it will run from the management server and won't connect to run remotly (smart("ssh), local, winrm, ...)
+  gather_facts: False
+  roles:
+    - aws_provisioner
+
+- hosts: iis_servers
+  gather_facts: False
+  connection: winrm
+  roles:
+    - windows_install
