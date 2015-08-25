@@ -1,9 +1,9 @@
 ---
 aws_instances_name  : "{{ inventory_hostname }}"
-tag_group           : "jump"
-aws_group           : "ghaleb_win"
+tag_group           : "sandbox_iis_demo"
+aws_group           : "sandbox_iis_demo"
 aws_instance_type   : "t2.micro"
-aws_image           : "ami-18be8405"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> EU
+aws_image           : "ami-0a181f17"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> EU
 #aws_image           : "ami-c3b3b1f3"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> US
 aws_wait            : "true"
 aws_exact_count     : "1" # The number of computers to provision
@@ -14,7 +14,7 @@ aws_count_tag       :
 aws_instance_tags   :
        Name         : "{{ aws_instances_name }}"
        Group        : "{{ tag_group }} "
-aws_keypair         : "ghaleb2"
+aws_keypair         : "sandbox_iis_demo"
 
 # Default variable winrm port and windows user
 ansible_ssh_port    : 5986  
