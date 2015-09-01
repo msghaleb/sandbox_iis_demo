@@ -1,6 +1,6 @@
 ---
 
-- pause: minutes=1
+- pause: minutes=5
 
 - name: Install IIS
   win_feature:
