@@ -22,3 +22,6 @@
   tags:
     - download_sample_page
 
+- name: Message | Show the user the testing URL
+  debug:
+        msg: 'please check open this URL using your browser to see your demo Web Server http://{{ ec2.tagged_instances[0].public_dns_name }}/ansible.html'
