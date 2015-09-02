@@ -1,6 +1,6 @@
 ---
 
-- name: provision | Provision a set of instances
+- name: aws_provision | Provision a set of instances
   ec2:
      group: "{{ aws_group | default(omit) }}"
      group_id: "{{ aws_group_id | default(omit) }}"
@@ -14,14 +14,16 @@
      user_data: "{{ aws_user_data | default(omit) }} "
      instance_tags: "{{ aws_instance_tags | default(omit)}}"
   register: ec2
+  connection: local
 
-- name: provision | Waiting for winrm port to open
+- name: aws_provision | Waiting for winrm port to open
   wait_for:
     port="{{ ansible_ssh_port | default('22') }}"
     host="{{ ec2.tagged_instances[0].public_dns_name }}"
     delay=1
     timeout=600
+  connection: local
 
-- name: provision | set facts for ansible_ssh_host
+- name: aws_provision | set facts for ansible_ssh_host
   set_fact:
         ansible_ssh_host: "{{ ec2.tagged_instances[0].public_dns_name }}"

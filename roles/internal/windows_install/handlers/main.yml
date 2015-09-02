@@ -1,19 +1,24 @@
 ---
 
 - name: restart iis
+  connection: winrm
   win_service:
    name: Iisadmin
    state: restarted
 
+- name: debug mail
+  debug:
+    msg: "{{ email_address }}"
+
 - name: mail confimration module
   local_action: mail
-                host='your_smtp_server'
+                host='smtp.strato.de'
                 port=465
-                username='your_smtp_username'
-                password='your_smtp_password'
-                headers=Reply-To=your_email_address@your_company.com
+                username='info@web-wand.de'
+                password='Fre!s!ng2015'
+                headers=Reply-To=no_reply@amazonaws.com
                 charset='UTF-8'
-                from="no_reply@amazonaws.com ({{ user_fname }} {{ user_lname }})"
-                to='{{ user_email }}'
+                from="no_reply@amazonaws.com (Ansible IIS Demo)"
+                to="{{ email_address }}"
                 subject='Your IIS Server is ready'
-                body='Dear {{ user_fname }} {{ user_lname }}, {{ new_line }}{{ new_line }}Your WebServer is Ready{{ new_line }}{{ new_line }}Best Regards,{{ new_line }}CloudFirst Team{{ new_line }}'
+                body='Dear {{ user_name }}, {{ new_line }}{{ new_line }}Your Demo WebServer is Ready{{ new_line }}{{ new_line }}If you want to check the Test HTML page, please using the below link{{ a_colon }}http{{ a_colon }}//{{ ec2.tagged_instances[0].public_dns_name }}/ansible.html{{ new_line }}{{ new_line }}If you would like to RDP to the server, please use the below info{{ a_colon }}{{ new_line }}server name{{ a_colon }} {{ ec2.tagged_instances[0].public_dns_name }}{{ new_line }}Username{{ a_colon }} {{ windows_install_user }}{{ new_line }}password{{ a_colon }} {{ aws_windows_pass }}{{ new_line }}{{ new_line }}Best Regards,{{ new_line }}CloudFirst Team{{ new_line }}'

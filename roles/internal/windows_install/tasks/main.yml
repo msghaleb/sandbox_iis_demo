@@ -1,8 +1,13 @@
 ---
 
-- pause: minutes=5
+- name: windows_install | waiting 3 minutes for the server to boot up
+  pause:
+     minutes=3
+     # prompt=".... waiting 3 minutes for the server to boot up ...."
 
-- name: Install IIS
+
+- name: windows_install | Install IIS
+  connection: winrm
   win_feature:
         name: "Web-Server"
         state: present
@@ -12,17 +17,18 @@
   tags:
     - install_iis
 
-- name: Download simple web site to 'C:\inetpub\wwwroot\ansible.html'
-  win_get_url:
-        url: 'https://raw.githubusercontent.com/thisdavejohnson/mywebapp/master/index.html'
+- name: windows_install | Download simple web site to 'C:\inetpub\wwwroot\ansible.html'
+  connection: winrm
+  win_template:
+        src: 'index.html'
         dest: 'C:\inetpub\wwwroot\ansible.html'
   notify:
     - restart iis
-    # - mail confimration module
+    - mail confimration module
     # uncomment the above if you want to send a confirmation mail, but don't forget to modify the mail module under roles/internal/handlers/main.yml ;-)
   tags:
     - download_sample_page
 
-- name: Message | Show the user the testing URL
-  debug:
-        msg: 'please check open this URL using your browser to see your demo Web Server http://{{ ec2.tagged_instances[0].public_dns_name }}/ansible.html'
+#- name: windows_install | Show the user the testing URL
+#  debug:
+#        msg: 'please open this URL using your browser to see your demo Web Server http://{{ ec2.tagged_instances[0].public_dns_name }}/ansible.html'

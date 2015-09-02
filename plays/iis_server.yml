@@ -1,13 +1,26 @@
 ---
 
 - hosts: iis_servers
-  connection: local # Local means it will run from the management server and won't connect to run remotly (smart("ssh), local, winrm, ...)
+  #connection: local # Local means it will run from the management server and won't connect to run remotly (smart("ssh), local, winrm, ...)
   gather_facts: False
+  vars_prompt:
+      - name: "user_name"
+        prompt: "Please enter your name"
+        private: no
+
+      - name: "email_address"
+        prompt: "Please type your e-mail address"
+        private: no
+
+      - name: "server_name"
+        prompt: "Please type a server name for the IIS but please without spaces"
+        private: no
+
   roles:
     - aws_provisioner
-
-- hosts: iis_servers
-  gather_facts: False
-  connection: winrm
-  roles:
     - windows_install
+
+#- hosts: iis_servers
+#  gather_facts: False
+#  connection: winrm
+#  roles:

@@ -1,10 +1,13 @@
 ---
-aws_instances_name  : "{{ inventory_hostname }}"
+aws_instances_name  : "{{ server_name }}"
 tag_group           : "sandbox_iis_demo"
 aws_group           : "sandbox_iis_demo"
 aws_instance_type   : "t2.micro"
-aws_image           : "ami-0a181f17"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> EU
-#aws_image           : "ami-c3b3b1f3"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> US
+#aws_image           : "ami-0a181f17"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> FFM
+#aws_image           : "ami-c3b3b1f3"  # Windows_Server-2012-RTM-English-64Bit-Base-2015.06.10 --> US - Oregon
+#aws_image           : "ami-cd9339a6"  # Windows Server 2012 --> N. Virginia
+aws_image           : "ami-1a92cf6d"  # Windows Server 2012 --> IE
+#aws_image           : "ami-12737d40"  # Windows Server 2012 --> SGP
 aws_wait            : "true"
 aws_exact_count     : "1" # The number of computers to provision
 aws_count_tag       :
@@ -12,16 +15,16 @@ aws_count_tag       :
        Group        : "{{ tag_group }} "
 
 aws_instance_tags   :
-       Name         : "{{ aws_instances_name }}"
+       Name         : "{{ server_name }}"
        Group        : "{{ tag_group }} "
 aws_keypair         : "sandbox_iis_demo"
 
 # Default variable winrm port and windows user
-ansible_ssh_port    : 5986  
+ansible_ssh_port    : 5986
 ansible_ssh_user    : Administrator
 # below is the password generator, not all characters are allowed but at least 1 special is a must.
 # aws_iam_pass is the IAM password
-aws_iam_pass        : "{{ lookup('password', '/tmp/jump_pcs/' + inventory_hostname + '/iam_pass chars=ascii_letters,digits length=25') }}!" 
+aws_iam_pass        : "{{ lookup('password', '/tmp/jump_pcs/' + inventory_hostname + '/iam_pass chars=ascii_letters,digits length=25') }}!"
 # aws_windows_pass is the jump PC windows password.
 aws_windows_pass    : "{{ lookup('password', '/tmp/jump_pcs/' + inventory_hostname + '/win_pass chars=ascii_letters,digits length=25') }}!"
 # Thats the default password, ansible is using for connecting to clients.
